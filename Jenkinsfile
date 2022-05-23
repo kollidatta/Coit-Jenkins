@@ -22,7 +22,7 @@ pipeline{
             steps{
                 //dir('./coit-frontend')
 				script{
-				def dockerfile = 'Dockerfile-multistage.test'
+				def dockerfile = 'Dockerfile-multistage'
 				DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend/")
 				}
                 
