@@ -49,7 +49,6 @@ pipeline{
                 dir('./coit-backend2'){
 				echo "path- $PATH"
 				script{
-				def dockerfile = 'Dockerfile'
 				DockerBackend2 = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
 				//sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
 				}
