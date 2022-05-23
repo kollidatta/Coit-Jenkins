@@ -46,12 +46,12 @@ pipeline{
 		}*/
 		stage('Build backend2'){
             steps{
-                //dir('./coit-frontend')
+                dir('./coit-backend2')
 				echo "path- $PATH"
 				script{
 				def dockerfile = 'Dockerfile'
-				//DockerImage = docker.build("kollidatta/backend2:${env.BUILD_TAG}","-f ${dockerfile} ./coit-backend2/")
-				sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+				DockerImage = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
+				//sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
 				}
                 
             }
