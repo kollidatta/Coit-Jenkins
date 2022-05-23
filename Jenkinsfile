@@ -33,7 +33,7 @@ pipeline{
                 
             }
         }
-		stage('Push Docker Image'){
+		stage('Push Frontend'){
 			steps{
 				script{
 					docker.withRegistry('','dockerhub'){
@@ -44,7 +44,7 @@ pipeline{
 
 			}
 		}
-		stage('Build backend2'){
+		/*stage('Build backend2'){
             steps{
                 dir('./coit-backend2'){
 				echo "path- $PATH"
@@ -66,7 +66,7 @@ pipeline{
 				}
 
 			}
-		}
+		}*/
     }
 	post {
 			always{
