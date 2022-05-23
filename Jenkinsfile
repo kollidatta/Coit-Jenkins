@@ -12,7 +12,7 @@ pipeline{
 				sh 'docker --version'
 				echo "Build"
 				echo "PATH - $PATH"
-				echo "pwd"
+				echo "pwd - $PWD"
 				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
 				echo "BUILD_ID - $env.BUILD_ID"
 				echo "BUILD_TAG - $env.BUILD_TAG"
@@ -22,7 +22,8 @@ pipeline{
         stage('Build '){
             steps{
                 //dir('./coit-frontend')
-				echo "pwd"
+				echo "pwd- $PWD"
+				echo "path- $PATH"
 				script{
 				
 				def dockerfile = 'Dockerfile-multistage'
