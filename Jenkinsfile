@@ -50,8 +50,8 @@ pipeline{
 				echo "path- $PATH"
 				script{
 				def dockerfile = 'Dockerfile'
-				DockerImage = docker.build("kollidatta/backend2:${env.BUILD_TAG}","-f ${dockerfile} ./coit-backend2/")
-				//sh('docker build -t kollidatta/coitfrontend:v1 -f ./coit-frontend/Dockerfile-multistage .')
+				//DockerImage = docker.build("kollidatta/backend2:${env.BUILD_TAG}","-f ${dockerfile} ./coit-backend2/")
+				sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
 				}
                 
             }
