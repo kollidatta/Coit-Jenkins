@@ -20,8 +20,10 @@ pipeline{
 		}
         stage('Build '){
             steps{
-                dir('/coit-frontend')
-                //DockerImage = docker.build("Dockerfile-multistage:${env.BUILD_TAG}")
+                dir('/coit-frontend'){
+					DockerImage = docker.build("Dockerfile-multistage:${env.BUILD_TAG}")
+				}
+                
             }
         }
 		stage('Push Docker Image'){
