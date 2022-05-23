@@ -12,6 +12,7 @@ pipeline{
 				sh 'docker --version'
 				echo "Build"
 				echo "PATH - $PATH"
+				echo "pwd"
 				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
 				echo "BUILD_ID - $env.BUILD_ID"
 				echo "BUILD_TAG - $env.BUILD_TAG"
@@ -21,7 +22,9 @@ pipeline{
         stage('Build '){
             steps{
                 //dir('./coit-frontend')
+				echo "pwd"
 				script{
+				
 				def dockerfile = 'Dockerfile-multistage'
 				DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend")
 				}
