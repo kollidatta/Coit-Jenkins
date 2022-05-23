@@ -22,7 +22,7 @@ pipeline{
             steps{
                 //dir('./coit-frontend')
 				script{
-				DockerImage = docker.build("Dockerfile-multistage:${env.BUILD_TAG}","./coit-frontend/")
+				DockerImage = docker.build("dockerfile-multistage:${env.BUILD_TAG}","./coit-frontend/")
 				}
                 
             }
