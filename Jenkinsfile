@@ -20,15 +20,15 @@ pipeline{
 				echo "JOB_NAME - $env.JOB_NAME"
 			}
 		}
-        /*stage('Build '){
+        stage('Build '){
             steps{
-                //dir('./coit-frontend')
+                dir('./coit-frontend')
 				echo "path- $PATH"
 				script{
 				checkout scm
 				def dockerfile = 'Dockerfile-multistage'
-				//DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend/")
-				sh('docker build -t kollidatta/coitfrontend:v1 -f ./coit-frontend/Dockerfile-multistage .')
+				DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile}")
+				//sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
 				}
                 
             }
@@ -37,20 +37,20 @@ pipeline{
 			steps{
 				script{
 					docker.withRegistry('','dockerhub'){
-						DockerImage.push();
-						DockerImage.push('latest');
+						DockerFrontend.push();
+						DockerFrontend.push('latest');
 					}
 				}
 
 			}
-		}*/
+		}
 		stage('Build backend2'){
             steps{
                 dir('./coit-backend2'){
 				echo "path- $PATH"
 				script{
 				def dockerfile = 'Dockerfile'
-				DockerImage = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
+				DockerBackend2 = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
 				//sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
 				}
 				}
@@ -61,8 +61,8 @@ pipeline{
 			steps{
 				script{
 					docker.withRegistry('','dockerhub'){
-						DockerImage.push();
-						DockerImage.push('latest');
+						DockerBackend2.push();
+						DockerBackend2.push('latest');
 					}
 				}
 
