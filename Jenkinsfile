@@ -21,7 +21,7 @@ pipeline{
         stage('Build '){
             steps{
                 sh('./coit-frontend')
-                Docker Image = docker.build("Dockerfile-multistage:${env.BUILD_TAG}")
+                DockerImage = docker.build("Dockerfile-multistage:${env.BUILD_TAG}")
             }
         }
 		stage('Push Docker Image'){
