@@ -27,8 +27,8 @@ pipeline{
 				script{
 				checkout scm
 				def dockerfile = 'Dockerfile-multistage'
-				//DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile}")
-				sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
+				DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} .")
+				//sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
 				}
 				} 
             }
