@@ -20,9 +20,10 @@ pipeline{
 		}
         stage('Build '){
             steps{
-                //dir('./coit-frontend'){
+                //dir('./coit-frontend')
+				script{
 				DockerImage = docker.build("Dockerfile-multistage:${env.BUILD_TAG}","./coit-frontend/")
-				//}
+				}
                 
             }
         }
