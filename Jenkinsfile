@@ -25,7 +25,7 @@ pipeline{
 				echo "pwd- $PWD"
 				echo "path- $PATH"
 				script{
-				
+				checkout scm
 				def dockerfile = 'Dockerfile-multistage'
 				DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend/")
 				}
