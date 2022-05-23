@@ -22,7 +22,7 @@ pipeline{
 		}
         stage('Build '){
             steps{
-                dir('./coit-frontend')
+                dir('./coit-frontend'){
 				echo "path- $PATH"
 				script{
 				checkout scm
@@ -30,7 +30,7 @@ pipeline{
 				DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile}")
 				//sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
 				}
-                
+				} 
             }
         }
 		stage('Push Frontend'){
@@ -44,7 +44,7 @@ pipeline{
 
 			}
 		}
-		/*stage('Build backend2'){
+		stage('Build backend2'){
             steps{
                 dir('./coit-backend2'){
 				echo "path- $PATH"
@@ -56,7 +56,7 @@ pipeline{
                 
             }
         }
-		stage('Push Docker Image'){
+		stage('Push backend2'){
 			steps{
 				script{
 					docker.withRegistry('','dockerhub'){
@@ -66,7 +66,7 @@ pipeline{
 				}
 
 			}
-		}*/
+		}
     }
 	post {
 			always{
