@@ -23,12 +23,12 @@ pipeline{
         stage('Build '){
             steps{
                 //dir('./coit-frontend')
-				echo "pwd- $PWD"
 				echo "path- $PATH"
 				script{
 				checkout scm
 				def dockerfile = 'Dockerfile-multistage'
-				DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend/")
+				//DockerImage = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${dockerfile} ./coit-frontend/")
+				sh('docker build -t kollidatta/coitfrontend:v1 -f ./coit-frontend/Dockerfile-multistage .')
 				}
                 
             }
