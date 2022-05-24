@@ -78,7 +78,7 @@ pipeline{
                 
             }
         }
-		stage('Push backend2'){
+		stage('Push backend1'){
 			steps{
 				script{
 					docker.withRegistry('','dockerhub'){
