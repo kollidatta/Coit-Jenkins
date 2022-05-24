@@ -1,6 +1,9 @@
 pipeline{
     agent any
     environment{
+		registryName = "CoitFrontend"
+		registryUrl = "coitfrontend.azurecr.io"
+		registryCredential = "ACR"
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
 		gitHome = tool 'myGit'
@@ -17,6 +20,8 @@ pipeline{
 				echo "BUILD_ID - $env.BUILD_ID"
 				echo "BUILD_TAG - $env.BUILD_TAG"
 				echo "JOB_NAME - $env.JOB_NAME"
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [],
+				 gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]])
 			}
 		}
         stage('Build '){
@@ -27,14 +32,15 @@ pipeline{
 				def FRONTENDDOCKER = 'Dockerfile-multistage'
 				DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
 				//sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
+				
 				}
 				} 
             }
         }
-		stage('Push Frontend'){
+		stage('Push Frontend to ACR'){
 			steps{
 				script{
-					docker.withRegistry('','dockerhub'){
+					docker.withRegistry("http://${registryUrl}",registryCredential){
 						DockerFrontend.push();
 						DockerFrontend.push('latest');
 					}
@@ -88,6 +94,7 @@ pipeline{
 
 			}
 		}
+		
     }
 	post {
 			always{
