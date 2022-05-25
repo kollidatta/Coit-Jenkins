@@ -63,7 +63,8 @@ pipeline{
 		stage('Push backend2'){
 			steps{
 				script{
-					docker.withRegistry('','dockerhub'){
+					//docker.withRegistry('','dockerhub'){
+					docker.withRegistry("http://${registryUrl}",registryCredential){
 						DockerBackend2.push();
 						DockerBackend2.push('latest');
 					}
@@ -86,7 +87,7 @@ pipeline{
 		stage('Push backend1'){
 			steps{
 				script{
-					docker.withRegistry('','dockerhub'){
+					docker.withRegistry("http://${registryUrl}",registryCredential){
 						DockerBackend1.push();
 						DockerBackend1.push('latest');
 					}
