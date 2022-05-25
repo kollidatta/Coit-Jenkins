@@ -20,9 +20,9 @@ pipeline{
 				echo "BUILD_ID - $env.BUILD_ID"
 				echo "BUILD_TAG - $env.BUILD_TAG"
 				echo "JOB_NAME - $env.JOB_NAME"
-				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [],
-				 gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]])
-			}
+				//checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [],
+				// gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]]) 
+			}	
 		}
         stage('Build '){
             steps{
