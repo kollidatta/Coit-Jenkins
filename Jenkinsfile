@@ -96,7 +96,7 @@ pipeline{
 			}
 		}
 		stage('Deploy to K8s'){
-			dir(./resource-manifests){
+			dir('./resource-manifests'){
 				steps{
 					kubernetesDeploy{
 						sh('kubectl apply -f coit-backend2-deployment.yaml')
