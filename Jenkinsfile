@@ -99,7 +99,9 @@ pipeline{
 			steps{
 				dir('./resource-manifests'){
 					script{
-						sh('kubectl apply -f coit-backend2-deployment.yaml')
+						withKubeConfig(["coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io",'K8S']){
+							sh('kubectl apply -f coit-backend2-deployment.yaml')
+						}
 					}		
 				}
 			}
