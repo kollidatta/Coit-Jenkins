@@ -27,7 +27,7 @@ pipeline{
         stage('Build '){
             steps{
                 dir('./coit-frontend'){
-				echo "path- $PATH"
+				//echo "path- $PATH"
 				script{
 				def FRONTENDDOCKER = 'Dockerfile-multistage'
 				DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
@@ -93,6 +93,15 @@ pipeline{
 					}
 				}
 
+			}
+		}
+		stage('Deploy to K8s'){
+			dir(./resource-manifests){
+				steps{
+					kubernetesDeploy{
+						sh('kubectl apply -f coit-backend2-deployment.yaml')
+					}		
+				}
 			}
 		}
 		
