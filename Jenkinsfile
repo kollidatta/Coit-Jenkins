@@ -2,8 +2,10 @@ pipeline{
     agent any
     environment{
 		registryName = "CoitFrontend"
-		registryUrl = "coitfrontend.azurecr.io"
+		registryUrl = "coitfrontend.azurecr.io/"
 		registryCredential = "ACR"
+		COMPOSE_PROJECT_NAME = "mycustomsolution"
+
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
 		gitHome = tool 'myGit'
@@ -99,8 +101,10 @@ pipeline{
 			steps{
 				dir('./resource-manifests'){
 					script{
-						withKubeConfig([credentialsId:'K8S',serverUrl:"coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io"]){
-							sh('kubectl apply -f coit-backend2-deployment.yaml')
+						kubernetesDeploy{
+							config:"coit-backend2-deployment.yaml"
+							kubeConfigId:"K8S"
+							enableConfigSubstitute:true
 						}
 					}		
 				}
