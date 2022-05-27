@@ -110,7 +110,19 @@ pipeline{
 					}		
 				}
 			}
-		
+		stage('Deploy backend2 to K8s'){
+			steps{
+				dir('./resource-manifests'){
+					script{
+						kubernetesDeploy(
+							configs:"coit-backend2-deployment.yaml",
+							kubeconfigId:"K8S",
+							enableConfigSubstitution:true
+						)
+						}
+					}		
+				}
+			}
     }
 	post {
 			always{
