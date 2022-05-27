@@ -102,7 +102,7 @@ pipeline{
 				dir('./resource-manifests'){
 					script{
 						kubernetesDeploy(
-							configs:"service-coit-backend2.yaml",
+							configs:"service-coit-frontend-lb.yaml",
 							kubeconfigId:"K8S",
 							enableConfigSubstitution:true
 						)
@@ -115,7 +115,7 @@ pipeline{
 				dir('./resource-manifests'){
 					script{
 						kubernetesDeploy(
-							configs:"coit-backend2-deployment.yaml",
+							configs:"coit-frontend-deployment.yaml",
 							kubeconfigId:"K8S",
 							enableConfigSubstitution:true
 						)
