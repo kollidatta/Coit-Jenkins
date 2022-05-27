@@ -97,7 +97,7 @@ pipeline{
 
 			}
 		}
-		stage('Deploy to K8s'){
+		stage('Deploy Frontend Service to K8s'){
 			steps{
 				dir('./resource-manifests'){
 					script{
@@ -110,7 +110,7 @@ pipeline{
 					}		
 				}
 			}
-		stage('Deploy backend2 to K8s'){
+		stage('Deploy Frontend application to K8s'){
 			steps{
 				dir('./resource-manifests'){
 					script{
@@ -120,6 +120,15 @@ pipeline{
 							enableConfigSubstitution:true
 						)
 						}
+					}		
+				}
+			}
+			stage('Deploy backend2 to K8s'){
+			steps{
+				dir('./resource-manifests'){
+					withKubeConfig([credentialsId: 'K8S', serverUrl: 'coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io']) {
+      								sh 'kubectl apply -f coit-backend1-deployment.yaml'
+    					}
 					}		
 				}
 			}
