@@ -101,15 +101,15 @@ pipeline{
 			steps{
 				dir('./resource-manifests'){
 					script{
-						kubernetesDeploy{
+						kubernetesDeploy(
 							configs:"coit-backend2-deployment.yaml",
 							kubeconfigId:"K8S",
 							enableConfigSubstitution:true
+						)
 						}
 					}		
 				}
 			}
-		}
 		
     }
 	post {
