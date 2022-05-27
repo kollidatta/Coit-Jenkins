@@ -102,9 +102,9 @@ pipeline{
 				dir('./resource-manifests'){
 					script{
 						kubernetesDeploy{
-							config:"coit-backend2-deployment.yaml",
-							kubeConfigId:"K8S",
-							enableConfigSubstitute:true
+							configs:"coit-backend2-deployment.yaml",
+							kubeconfigId:"K8S",
+							enableConfigSubstitution:true
 						}
 					}		
 				}
