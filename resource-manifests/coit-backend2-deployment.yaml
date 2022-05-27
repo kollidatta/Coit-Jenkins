@@ -21,7 +21,7 @@ spec:
         app: coit-backend2
     spec:
       containers:
-        - image: us.gcr.io/peak-lattice-347801/backend2:v1
+        - image: kollidatta/backend2:latest
           imagePullPolicy: IfNotPresent
           name: coit-backend2
           resources:

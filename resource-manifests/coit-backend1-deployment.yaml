@@ -21,7 +21,7 @@ spec:
         app: coit-backend1
     spec:
       containers:
-      - image: us.gcr.io/peak-lattice-347801/backend1:v1
+      - image: ccoitfrontend.azurecr.io/kollidatta/backend1:jenkins-coit-jenkins-8
         imagePullPolicy: IfNotPresent
         name: coit-backend1
         env:
