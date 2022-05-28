@@ -126,7 +126,7 @@ pipeline{
 			stage('Deploy backend2 to K8s'){
 			steps{
 				dir('./resource-manifests'){
-					withKubeConfig([credentialsId: 'K8S', serverUrl: 'coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io']) {
+					withKubeConfig([credentialsId: 'kube', serverUrl: 'coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io']) {
       								sh 'kubectl apply -f coit-backend1-deployment.yaml'
     					}
 					}		
