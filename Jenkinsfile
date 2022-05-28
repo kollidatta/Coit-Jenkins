@@ -129,7 +129,7 @@ pipeline{
 					withKubeConfig([credentialsId: 'kube', serverUrl: 'coitcluster-dns-d0ad6b72.hcp.southeastasia.azmk8s.io']) {
 						sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
 						sh 'chmod u+x ./kubectl'
-						sh 'kubectl apply -f coit-backend1-deployment.yaml'
+						sh './kubectl apply -f coit-backend1-deployment.yaml'
     					}
 					}		
 				}
