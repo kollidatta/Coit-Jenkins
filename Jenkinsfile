@@ -1,4 +1,5 @@
 pipeline{
+    
     agent any 
     environment{
         mavenHome = tool 'mymaven'
@@ -21,7 +22,7 @@ pipeline{
 				// gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]]) 
 			}	
 		}
-        stage('Build'){
+        /*stage('Build'){
 			steps{
 				dir('./coit-frontend'){
                 script{
@@ -29,8 +30,19 @@ pipeline{
 				    DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
 			}
             
-                }
+        	 }
             }
-        }
-    }
+        }*/
+		stage('K8s Deployment'){
+			dir('./resource-manifests'){
+					script{
+						kubernetesDeploy(
+							configs:"coit-frontend-deployment.yaml",
+							kubeconfigId:"K8S",
+							enableConfigSubstitution:true
+						)
+						}
+					}
+    			}
+	}
 }
