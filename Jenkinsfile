@@ -2,15 +2,14 @@ pipeline{
     
     agent any 
     environment{
-        registry = ""
+        mavenHome = tool 'mymaven'
+		dockerHome = tool 'mydocker'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
     }
 
     stages{
         stage('Checkout'){
 			steps{
-				mavenHome = tool 'mymaven'
-				dockerHome = tool 'mydocker'
-				PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 				sh 'mvn --version'
 				sh 'docker --version'
 				echo "Build"
