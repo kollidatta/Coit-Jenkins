@@ -27,8 +27,8 @@ pipeline{
                 script{
                     def FRONTENDDOCKER = 'Dockerfile-multistage'
 				    DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
+                }
             }
-
         }
     }
 }
