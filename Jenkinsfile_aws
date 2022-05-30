@@ -1,7 +1,5 @@
 pipeline{
-    tools{
-        
-    }
+    
     agent any 
     environment{
         registry = ""
@@ -23,10 +21,13 @@ pipeline{
 			}	
 		}
         stage('Build'){
-            dir('./coit-frontend'){
+			steps{
+				dir('./coit-frontend'){
                 script{
                     def FRONTENDDOCKER = 'Dockerfile-multistage'
 				    DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
+			}
+            
                 }
             }
         }
