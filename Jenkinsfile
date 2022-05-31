@@ -46,7 +46,7 @@ pipeline{
 					}
     			}
 		}
-		stage('K8s Deployment'){
+		stage('K8s Deployment for lb'){
 			steps{
 			dir('./resource-manifests'){
 					script{
