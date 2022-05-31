@@ -34,15 +34,17 @@ pipeline{
             }
         }*/
 		stage('K8s Deployment'){
+			steps{
 			dir('./resource-manifests'){
 					script{
 						kubernetesDeploy(
 							configs:"coit-frontend-deployment.yaml",
-							kubeconfigId:"K8S",
+							kubeconfigId:"k8s",
 							enableConfigSubstitution:true
 						)
 						}
 					}
     			}
+		}
 	}
 }
