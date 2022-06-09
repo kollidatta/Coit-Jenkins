@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ./coit-backend1-deployment.yaml
+- ./coit-backend1-service.yaml
+images:
+- name: coitlearning/coit-backend1
+  newTag: latest
+
+configMapGenerator:
+- name: coit-backend1-config
+  envs:
+  - application.properties
+
+secretGenerator:
+  - name: coit-backend1-secrets
+    envs:
+    - applicationsecrets.properties
+
+commonLabels:
+  app: coitbackend1
+  managed-by: kustomize
+
+labels:
+  - pairs:
+      location: mumbai

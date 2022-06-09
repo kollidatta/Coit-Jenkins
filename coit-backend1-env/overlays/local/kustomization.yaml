@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+images:
+  - name: coitlearning/coit-backend1
+    newName: coitlearning/coit-backend1
+    newTag: latest
+
+namespace: local
