@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coit-backend1
+  labels:
+    app: coit-backend1
+spec:
+  selector:
+    matchLabels:
+      app: coit-backend1
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: coit-backend1
+    spec:
+      containers:
+      - image: ccoitfrontend.azurecr.io/kollidatta/backend1:jenkins-coit-jenkins-8
+        imagePullPolicy: IfNotPresent
+        name: coit-backend1
+        env:
+          - name: SA_LOGIC_API_URL
+            value: "http://coit-backend2"
+        resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"  
+        ports:
+          - containerPort: 8080
