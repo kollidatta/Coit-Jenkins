@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    environment{
+		registryName = "CoitFrontend"
+		registryUrl = "coitfrontend.azurecr.io/"
+		registryCredential = "ACR"
+		COMPOSE_PROJECT_NAME = "mycustomsolution"
+
+		mavenHome = tool 'mymaven'
+		dockerHome = tool 'mydocker'
+		gitHome = tool 'myGit'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$gitHome/bin:$PATH"
+	}
+    stages {
+        stage('Checkout'){
+			steps{
+				sh 'mvn --version'
+				sh 'docker --version'
+				echo "Build"
+				echo "PATH - $PATH"
+				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
+				echo "BUILD_ID - $env.BUILD_ID"
+				echo "BUILD_TAG - $env.BUILD_TAG"
+				echo "JOB_NAME - $env.JOB_NAME"
+				//checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [],
+				// gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]]) 
+			}	
+        stage('Build Images') {
+            parallel {
+                stage('Test On Windows') {
+                    agent {
+                        label "windows"
+                    }
+                    steps {
+                        bat "run-tests.bat"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+                stage('Test On Linux') {
+                    agent {
+                        label "linux"
+                    }
+                    steps {
+                        sh "run-tests.sh"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
