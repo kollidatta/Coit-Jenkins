@@ -6,6 +6,7 @@ pipeline {
 		registryCredential = "ACR"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
 
+
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
 		gitHome = tool 'myGit'
@@ -27,29 +28,26 @@ pipeline {
 			}	
         stage('Build Images') {
             parallel {
-                stage('Test On Windows') {
-                    agent {
-                        label "windows"
-                    }
-                    steps {
-                        bat "run-tests.bat"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
+                stage('Build Frontend') {
+                    steps{
+                        dir('./coit-frontend'){
+                            script{
+                                def FRONTENDDOCKER = 'Dockerfile-multistage'
+                                DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
+				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
+                                }
+                            }
                         }
                     }
-                }
-                stage('Test On Linux') {
-                    agent {
-                        label "linux"
-                    }
-                    steps {
-                        sh "run-tests.sh"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
+                stage('Build backend2'){
+                    steps{
+                        dir('./coit-backend2'){
+                            echo "path- $PATH"
+                            script{
+                                DockerBackend2 = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
+                            //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+                                }
+                            }
                         }
                     }
                 }
