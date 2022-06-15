@@ -34,6 +34,7 @@ pipeline {
                     steps{
                         dir('./coit-frontend'){
                             script{
+                                sh 'chmod a+x app/node_modules/.bin/react-scripts'
                                 def FRONTENDDOCKER = 'Dockerfile-multistage'
                                 DockerFrontend = docker.build("kollidatta/frontend:${tag}","-f ${FRONTENDDOCKER} .")
 				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
