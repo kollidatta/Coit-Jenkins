@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
 		registryName = "peak-lattice-347801"
-        dockerregistry= "https://www.docker.com/"
+        dockerregistry= "kollidatta/coitapp"
 		registryUrl = " https://us.gcr.io"
 		registryCredential = "My First Project"
         dockercredentials = "dockerhub"
@@ -40,7 +40,7 @@ pipeline {
                                 def FRONTENDDOCKER = 'Dockerfile-multistage'
                                 DockerFrontend = docker.build("kollidatta/frontend:${tag}","-f ${FRONTENDDOCKER} .")
 				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
-                                docker.withRegistry("${dockerregistry}",dockercredentials){
+                                docker.withRegistry("",dockercredentials){
                                 DockerFrontend.push();
                                 DockerFrontend.push('latest');
                                 }
