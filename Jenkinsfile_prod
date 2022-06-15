@@ -42,7 +42,7 @@ pipeline {
                             }
                         }
                     }
-                /*(stage('Build backend2'){
+                stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
                             echo "path- $PATH"
@@ -64,7 +64,7 @@ pipeline {
                             }
                         
                         }
-                    }*/
+                    }
                 }
             }
         }
