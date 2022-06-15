@@ -3,7 +3,7 @@ pipeline {
     environment{
 		registryName = "peak-lattice-347801"
 		registryUrl = " https://us.gcr.io"
-		registryCredential = "GCRCredentials"
+		registryCredential = "My First Project"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
         tag = "1.0.0"
 
