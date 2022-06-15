@@ -63,6 +63,10 @@ pipeline {
                             script{
                                 DockerBackend2 = docker.build("kollidatta/backend2:${env.BUILD_TAG}")
                             //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+                                docker.withRegistry("",dockercredentials){
+                                DockerFrontend.push();
+                                DockerFrontend.push('latest');
+                                }
                                 }
                             }
                     }
@@ -79,9 +83,14 @@ pipeline {
                     steps{
                         dir('./coit-backend1'){
                             script{
-                            def BACKENDDCKER = 'Dockerfile-multistage'
-                            DockerBackend1 = docker.build("kollidatta/backend1:${env.BUILD_TAG}","-f ${BACKENDDCKER} .")
-                            //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+                                def BACKENDDCKER = 'Dockerfile-multistage'
+                                DockerBackend1 = docker.build("kollidatta/backend1:${env.BUILD_TAG}","-f ${BACKENDDCKER} .")
+                                //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+                                docker.withRegistry("",dockercredentials){
+                                DockerFrontend.push();
+                                DockerFrontend.push('latest');
+                                }
+
                                 }
                             }
                         
