@@ -30,7 +30,7 @@ pipeline {
         }	
         stage('Build Images') {
             parallel {
-                stage('Build Frontend') {
+                /*stage('Build Frontend') {
                     steps{
                         dir('./coit-frontend'){
                             script{
@@ -40,8 +40,8 @@ pipeline {
                                 }
                             }
                         }
-                    }
-               /* stage('Build backend2'){
+                    }*/
+                stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
                             echo "path- $PATH"
@@ -51,7 +51,7 @@ pipeline {
                                 }
                             }
                         }
-                    }*/
+                    }
                 stage('Build backend1'){
                     steps{
                         dir('./coit-backend1'){
