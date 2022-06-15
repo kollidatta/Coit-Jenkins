@@ -25,7 +25,8 @@ pipeline {
 				echo "JOB_NAME - $env.JOB_NAME"
 				//checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [],
 				// gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Coit-Jenkins']]]) 
-			}	
+			}
+        }	
         stage('Build Images') {
             parallel {
                 stage('Build Frontend') {
