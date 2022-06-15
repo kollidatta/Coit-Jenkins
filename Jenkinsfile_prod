@@ -10,7 +10,7 @@ pipeline {
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
 		gitHome = tool 'myGit'
-		PATH = "$dockerHome/bin:$mavenHome/bin:$gitHome/bin:$PATH"
+		PATH = "$dockerHome/bin:$gitHome/bin:$PATH"
 	}
     stages {
         stage('Checkout'){
