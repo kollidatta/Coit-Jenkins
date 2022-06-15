@@ -43,7 +43,7 @@ pipeline {
                                 DockerFrontend.push('latest');
                                 }
                             }
-                    }
+                        }
                     post{
                         success{
                             echo "Frontend build is success"
@@ -52,7 +52,7 @@ pipeline {
                             echo 'I run when you fail'
                         }
                     }
-                }
+                }                
                 stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
@@ -82,7 +82,7 @@ pipeline {
                                 }
                             }
                         
-                    }
+                         }
                     post{
                         success{
                             echo "Frontend build is success"
