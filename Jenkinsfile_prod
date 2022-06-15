@@ -5,7 +5,7 @@ pipeline {
 		registryUrl = "coitfrontend.azurecr.io/"
 		registryCredential = "ACR"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
-
+        tag = "1.0.0"
 
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
@@ -35,13 +35,13 @@ pipeline {
                         dir('./coit-frontend'){
                             script{
                                 def FRONTENDDOCKER = 'Dockerfile-multistage'
-                                DockerFrontend = docker.build("kollidatta/frontend:${env.BUILD_TAG}","-f ${FRONTENDDOCKER} .")
+                                DockerFrontend = docker.build("kollidatta/frontend:${tag}","-f ${FRONTENDDOCKER} .")
 				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
                                 }
                             }
                         }
                     }
-                stage('Build backend2'){
+               /* stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
                             echo "path- $PATH"
@@ -50,6 +50,18 @@ pipeline {
                             //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
                                 }
                             }
+                        }
+                    }*/
+                stage('Build backend1'){
+                    steps{
+                        dir('./coit-backend1'){
+                            script{
+                            def BACKENDDCKER = 'Dockerfile-multistage'
+                            DockerBackend1 = docker.build("kollidatta/backend1:${env.BUILD_TAG}","-f ${BACKENDDCKER} .")
+                            //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
+                                }
+                            }
+                        
                         }
                     }
                 }
