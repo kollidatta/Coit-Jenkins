@@ -30,7 +30,7 @@ pipeline {
         }	
         stage('Build Images') {
             parallel {
-                stage('Build Frontend') {
+                /*stage('Build Frontend') {
                     steps{
                         dir('./coit-frontend'){
                             script{
@@ -52,7 +52,7 @@ pipeline {
                             echo 'I run when you fail'
                         }
                     }
-                }                
+                }  */              
                 stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
@@ -96,4 +96,4 @@ pipeline {
             }
         }
     }
-}
+
