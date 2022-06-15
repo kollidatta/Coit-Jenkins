@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment{
-		registryName = "CoitFrontend"
-		registryUrl = "coitfrontend.azurecr.io/"
-		registryCredential = "ACR"
+		registryName = "peak-lattice-347801"
+		registryUrl = " https://us.gcr.io"
+		registryCredential = "GCRCredentials"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
         tag = "1.0.0"
 
@@ -38,10 +38,21 @@ pipeline {
                                 def FRONTENDDOCKER = 'Dockerfile-multistage'
                                 DockerFrontend = docker.build("kollidatta/frontend:${tag}","-f ${FRONTENDDOCKER} .")
 				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
+                                docker.withRegistry("${registryUrl}",registryCredential){
+                                DockerFrontend.push();
+                                DockerFrontend.push('latest');
                                 }
                             }
+                    }
+                    post{
+                        success{
+                            echo "Frontend build is success"
+                        }
+                         failure{
+                            echo 'I run when you fail'
                         }
                     }
+                }
                 stage('Build backend2'){
                     steps{
                         dir('./coit-backend2'){
@@ -51,8 +62,16 @@ pipeline {
                             //sh('docker build -t kollidatta/coitbackend2:v1 -f ./coit-backend2/Dockerfile .')
                                 }
                             }
+                    }
+                    post{
+                        success{
+                            echo "Backend2 build is success"
+                        }
+                         failure{
+                            echo 'I run when you fail'
                         }
                     }
+                }
                 stage('Build backend1'){
                     steps{
                         dir('./coit-backend1'){
@@ -63,8 +82,16 @@ pipeline {
                                 }
                             }
                         
+                    }
+                    post{
+                        success{
+                            echo "Frontend build is success"
+                        }
+                        failure{
+                            echo 'I run when you fail'
                         }
                     }
+                }
                 }
             }
         }
