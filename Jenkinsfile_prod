@@ -114,7 +114,7 @@ pipeline {
                     //sh('pwd')
                     sh('''docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval 'spec.containers.image.tag = strenv(TAG)' -i coit-frontend-deployment.yaml''')
                     }
-                }
+                
             }
             }
         
