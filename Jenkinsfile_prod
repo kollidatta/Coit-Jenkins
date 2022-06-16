@@ -110,12 +110,12 @@ pipeline {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
                 script{
-                    docker run --rm --user="root" \
+                    sh('docker run --rm --user="root"
                     -e TAG=tag \
                     -v "${PWD}":/workspace \
                     -w /workspace mikefarah/yq \
                     eval '.spec.spec.containers.image.tag = strenv(TAG)' \
-                    -i coit-frontend-deployment.yaml
+                    -i coit-frontend-deployment.yaml')
                     }
                 }
             }
