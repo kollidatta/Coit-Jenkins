@@ -110,7 +110,12 @@ pipeline {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
                 script{
-                    def file = 'kustomization.yaml'
+                    def repoUrl = checkout(scm).GIT_URL
+                    def key = repoUrl.tokenize('/')[3]
+                    def slug = repoUrl.tokenize('/')[4]
+                    slug = slug.substring(0, slug.lastIndexOf('.')) //Remove .git
+                    echo "The projectKey is: ${key}"
+                    echo "The repositorySlug is: ${slug}" 
                     sh('''docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.spec.containers.image.tag = strenv(TAG)' -i coit-frontend-deployment.yaml''')
                     }
                 }
