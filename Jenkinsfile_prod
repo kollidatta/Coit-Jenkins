@@ -51,7 +51,7 @@ pipeline {
                         success{
                             echo "Frontend build is success"
                         }
-                         failure{
+                        failure{
                             echo 'I run when you fail'
                         }
                     }
@@ -74,7 +74,7 @@ pipeline {
                         success{
                             echo "Backend2 build is success"
                         }
-                         failure{
+                        failure{
                             echo 'I run when you fail'
                         }
                     }
@@ -94,7 +94,7 @@ pipeline {
                                 }
                             }
                         
-                         }
+                        }
                     post{
                         success{
                             echo "Frontend build is success"
@@ -106,6 +106,14 @@ pipeline {
                 }
                 }
             }
+        stage('Modify Yaml'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
+                echo "PATH - $PATH"
+                }
+            }
+        
+        
         }
     }
 

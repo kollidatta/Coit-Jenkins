@@ -18,3 +18,5 @@ secretGenerator:
 - name: coit-backend1-secrets
   envs:
   - applicationsecret.properties
+#namePrefix: customer1-
+nameSuffix: -development

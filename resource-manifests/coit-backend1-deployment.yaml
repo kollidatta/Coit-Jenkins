@@ -21,12 +21,25 @@ spec:
         app: coit-backend1
     spec:
       containers:
-      - image: ccoitfrontend.azurecr.io/kollidatta/backend1:jenkins-coit-jenkins-8
+      - image: kollidatta/backend1:latest
         imagePullPolicy: IfNotPresent
         name: coit-backend1
         env:
           - name: SA_LOGIC_API_URL
-            value: "http://coit-backend2"
+            valueFrom: 
+              configMapKeyRef:
+                name: coit-backend1-config
+                key: python_url
+          - name: SMS_PROVIDER_USERNAME
+            valueFrom: 
+              secretKeyRef:
+                name: coit-backend1-secrets
+                key: username
+          - name: SMS_PROVIDER_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: coit-backend1-secrets
+                key: password
         resources:
             requests:
               memory: "512Mi"
