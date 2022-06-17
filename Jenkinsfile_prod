@@ -108,8 +108,7 @@ pipeline {
             }
         stage('Modify Yaml'){
             steps{
-                    withCredentials([gitUsernafm
-                    mePassword(credentialsId: 'gitcredentials', gitToolName: 'myGit')]) {
+                    withCredentials([gitUsernamePassword(credentialsId: 'gitcredentials', gitToolName: 'myGit')]) {
                         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs:[[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
                         script{
                     //sh('pwd')
