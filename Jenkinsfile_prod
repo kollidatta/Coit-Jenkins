@@ -108,15 +108,17 @@ pipeline {
             }
         stage('Modify Yaml'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
-                //dir('https://github.com/kollidatta/Kustomize-frontend'){
+                //checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
+                git url: "ssh://jenkins@your-git-repo:12345/your-git-project.git",
+                credentialsId: 'git',
+                branch: master
                 script{
                     //sh('pwd')
                     sh('''
                         docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.images[0].newTag ="TAG" ' -i kustomization.yaml
                         git add kustomization.yaml
                         git commit -m "[0000] [update] update manifest to version" 
-                        git push origin master''')
+                        git push credentialsId: 'git', url: 'https://github.com/kollidatta/Kustomize-frontend''')
                         
                         
                         
