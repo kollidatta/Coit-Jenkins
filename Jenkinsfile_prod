@@ -112,7 +112,10 @@ pipeline {
                 //dir('https://github.com/kollidatta/Kustomize-frontend'){
                 script{
                     //sh('pwd')
-                    sh('''docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.spec.template.spec.containers.image.tag = strenv(TAG)' -i coit-frontend-deployment.yaml''')
+                    sh('''
+                        git clone https://github.com/kollidatta/Kustomize-frontend
+                        //def data = readYaml file: coit-frontend-deployment.yaml
+                        docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.spec.template.spec.containers.image.tag = strenv(TAG)' -i coit-frontend-deployment.yaml''')
                     }
                 
             }
