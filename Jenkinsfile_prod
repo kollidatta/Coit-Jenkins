@@ -113,15 +113,12 @@ pipeline {
                 script{
                     //sh('pwd')
                     sh('''
-                        docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval 'images[0].newTag ="TAG" ' -i kustomization.yaml
+                        docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.images[0].newTag ="TAG" ' -i kustomization.yaml
                         git add kustomization.yaml
                         git commit -m "[0000] [update] update manifest to version" 
                         git push origin master''')
                         
-                        sshagent(['git']) {
-                                    git credentialsId: 'git', url: 'https://github.com/kollidatta/Kustomize-frontend'
-                                    sh "git push origin master"
-                        }
+                        
                         
                         }
                 
