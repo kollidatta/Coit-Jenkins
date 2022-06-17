@@ -116,7 +116,7 @@ pipeline {
                         docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.images[0].newTag ="TAG" ' -i kustomization.yaml
                         git add kustomization.yaml
                         git commit -m "[0000] [update] update manifest to version" 
-                        git push -u origin''')
+                        git push -u origin master''')
                         
                         
                         
