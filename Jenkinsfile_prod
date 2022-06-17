@@ -115,9 +115,13 @@ pipeline {
                     sh('''
                         docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq eval '.spec.template.spec.containers[0].image ="TAG" ' -i coit-frontend-deployment.yaml
                         git add coit-frontend-deployment.yaml
-                        git commit -m "[0000] [update] update manifest to version"
-                        git push -u origin HEAD:master ''')
-                    }
+                        git commit -m "[0000] [update] update manifest to version" ''')
+
+                        sshagent(['git']) {
+                                    sh "git push origin master"
+                        }
+                        
+                        }
                 
             }
             }
