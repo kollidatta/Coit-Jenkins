@@ -108,7 +108,7 @@ pipeline {
             }
         stage('Modify Yaml'){
             steps{
-                //checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
                 //dir('https://github.com/kollidatta/Kustomize-frontend'){
                 script{
                     //sh('pwd')
