@@ -108,8 +108,9 @@ pipeline {
             }
         stage('Modify Yaml'){
             steps{
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[credentialsId: 'gitcredentials', url: 'https://github.com/kollidatta/Kustomize-backend1/tree/master/coit-backend1']]])
-                    script{
+                    withCredentials([gitUsernamePassword(credentialsId: 'gitcredentials', gitToolName: 'myGit')]) {
+                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[url: 'https://github.com/kollidatta/Kustomize-backend1/tree/master/coit-backend1']]])
+                        script{
                     //sh('pwd')
                     sh('''
                         docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq e '.images[0].newTag =2.0' -i kustomization.yaml
@@ -123,12 +124,12 @@ pipeline {
                         
                         
                         
-                    }
+                        }
                 
-                }
+            }
             }
         
         
         }
-    
+    }
 
