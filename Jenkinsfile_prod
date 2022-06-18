@@ -7,7 +7,7 @@ pipeline {
 		registryCredential = "My First Project"
         dockercredentials = "dockerhub"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
-        tag = "2.0.0"
+        tag = "3.0.0"
 
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
