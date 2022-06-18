@@ -108,8 +108,7 @@ pipeline {
             }
         stage('Modify Yaml'){
             steps{
-                    withCredentials([gitUsernamePassword(credentialsId: 'gitcredentials', gitToolName: 'myGit')]) {
-                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs:[[url: 'https://github.com/kollidatta/Kustomize-backend1/tree/master/coit-backend1']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs: [[credentialsId: 'gitcredentials', url: 'https://github.com/kollidatta/Kustomize-backend1/tree/master/coit-backend1']]])
                         script{
                     //sh('pwd')
                     sh('''
