@@ -112,7 +112,7 @@ pipeline {
                         checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs:[[url: 'https://github.com/kollidatta/Kustomize-frontend']]])
                         script{
                     
-                    sh( 'docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq e \".images[0].newTag =\'${tag}\'\" -i kustomization.yaml')
+                    sh( 'docker run --rm --user="root" -e TAG=${tag} -v "${PWD}":/workspace -w /workspace mikefarah/yq e \'.images[0].newTag =\'${tag}\'\' -i kustomization.yaml')
                     sh('''git add kustomization.yaml
                         git commit -m "[0000] [update] update manifest to version" 
                         git push -u origin HEAD:master''')
