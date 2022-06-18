@@ -7,7 +7,7 @@ pipeline {
 		registryCredential = "My First Project"
         dockercredentials = "dockerhub"
 		COMPOSE_PROJECT_NAME = "mycustomsolution"
-        tag = "3.0.0"
+        tag = "4.0.0"
 
 		mavenHome = tool 'mymaven'
 		dockerHome = tool 'mydocker'
@@ -122,6 +122,24 @@ pipeline {
                 
                 }
             }
+        stage('Modify Yaml'){
+            steps{
+                    withCredentials([gitUsernamePassword(credentialsId: 'gitcredentials', gitToolName: 'myGit')]) {
+                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'Default', userRemoteConfigs:[[url: 'https://github.com/kollidatta/Kustomize-backend1']]])
+                        dir('./coit-backend1')
+                        script{
+                    
+                    sh('docker run --rm --user="root" -e TAG="${tag}" -v "${PWD}":/workspace -w /workspace mikefarah/yq e \'.images.[0].newTag =env(TAG)\' -i kustomization.yaml')
+                    
+                    sh('''git add kustomization.yaml
+                        git commit -m "[0000] [update] update manifest to version" 
+                        git push -u origin HEAD:master''')
+                        }       
+                    }
+                
+                }
+            }
+            
         
         }
     }
