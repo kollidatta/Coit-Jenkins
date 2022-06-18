@@ -118,7 +118,7 @@ pipeline {
                         git commit -m "[0000] [update] update manifest to version" 
                         git push -u origin HEAD:master''')
                         }       
-                    }coit-backend1
+                    }
                 
                 }
             }
