@@ -115,7 +115,7 @@ pipeline {
                     sh('docker run --rm --user="root" -e TAG="${tag}" -v "${PWD}":/workspace -w /workspace mikefarah/yq e \'.images.[0].newTag =env(TAG)\' -i kustomization.yaml')
                     
                     sh('''git add kustomization.yaml
-                        git commit -m "[0000] [update] update manifest to version" 
+                        git diff-index --quiet HEAD || git commit -m "Jenkins automatic update commit"
                         git push -u origin HEAD:master''')
                         }       
                     }
