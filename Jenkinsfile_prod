@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment{
-		registryName = "peak-lattice-347801"
-        dockerregistry= "kollidatta/coitapp"
-		registryUrl = " https://us.gcr.io"
-		registryCredential = "My First Project"
+		//registryName = "peak-lattice-347801"
+        //dockerregistry= "kollidatta/coitapp"
+		//registryUrl = " https://us.gcr.io"
+		//registryCredential = "My First Project"
         dockercredentials = "dockerhub"
-		COMPOSE_PROJECT_NAME = "mycustomsolution"
+		//COMPOSE_PROJECT_NAME = "mycustomsolution"
         tag = "4.0.0"
 
 		mavenHome = tool 'mymaven'
@@ -42,7 +42,7 @@ pipeline {
 				                //sh('docker build -t kollidatta/coitfrontend:v1 -f Dockerfile-multistage .')
                                 docker.withRegistry("",dockercredentials){
                                 DockerFrontend.push();
-                                DockerFrontend.push('latest');
+                                //DockerFrontend.push('latest');
                                 }
                             }
                         }
